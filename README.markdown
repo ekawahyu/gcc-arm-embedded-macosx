@@ -4,6 +4,7 @@ This is a wrapper script that knows how to patch and build the
 ARM-maintained toolchain for the ARM Cortex-M and Cortex-R processors.
 
 Prerequisites:
+
 * Mac OS X 10.6 (Snow Leopard) or later.
 * Xcode
 * The p7zip archiver.  You can install this via Homebrew or MacPorts.
