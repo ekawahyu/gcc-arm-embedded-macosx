@@ -1,0 +1,60 @@
+***************
+*** 119,125 ****
+          INSTALLDIR_MINGW=$ROOT/install-mingw
+          
+          PACKAGEDIR=$ROOT/pkg
+-        @@ -238,10 +238,10 @@
+          LICENSE_FILE=license.txt
+          GCC_VER=`cat $SRCDIR/$GCC/gcc/BASE-VER`
+          GCC_VER_NAME=`echo $GCC_VER | cut -d'.' -f1,2 | sed -e 's/\./_/g'`
+--- 119,125 ----
+          INSTALLDIR_MINGW=$ROOT/install-mingw
+          
+          PACKAGEDIR=$ROOT/pkg
++        @@ -255,10 +255,10 @@
+          LICENSE_FILE=license.txt
+          GCC_VER=`cat $SRCDIR/$GCC/gcc/BASE-VER`
+          GCC_VER_NAME=`echo $GCC_VER | cut -d'.' -f1,2 | sed -e 's/\./_/g'`
+***************
+*** 355,368 ****
+          This toolchain is built and optimized for Cortex-R/M bare metal development.
+  EOF
+  patch <<-'EOF'
+-        --- ../release.txt      2011-12-21 18:21:58.000000000 -0800
+-        +++ ./release.txt       2012-01-28 17:53:17.000000000 -0800
+-        @@ -2,57 +2,15 @@
+-         *************************************************
+-         GNU Tools for ARM Embedded Processors
+-                                    - Dec 2011
+-        +Modified binary-only distribution for Mac OS X
+-        +                           - Feb 2012
+          *************************************************
+          
+          This release includes the following items:
+--- 355,363 ----
+          This toolchain is built and optimized for Cortex-R/M bare metal development.
+  EOF
+  patch <<-'EOF'
++        --- ../release.txt      2012-03-31 21:30:25.000000000 -0700
++        +++ ./release.txt       2012-03-31 21:31:19.000000000 -0700
++        @@ -5,54 +5,10 @@
+          *************************************************
+          
+          This release includes the following items:
+***************
+*** 370,376 ****
+         -* Bare metal EABI pre-built binaries for running on a Linux host
+         -* Source code package (together with build scripts and instructions to setup
+         -  build environment), composed of:
+-        -  * gcc : ARM/embedded-4_6-branch revision 182083
+         -    http://gcc.gnu.org/svn/gcc/branches/ARM/embedded-4_6-branch/
+         -
+         -  * binutils : 2.21 with mainline backports
+--- 365,371 ----
+         -* Bare metal EABI pre-built binaries for running on a Linux host
+         -* Source code package (together with build scripts and instructions to setup
+         -  build environment), composed of:
++        -  * gcc : ARM/embedded-4_6-branch revision 185452
+         -    http://gcc.gnu.org/svn/gcc/branches/ARM/embedded-4_6-branch/
+         -
+         -  * binutils : 2.21 with mainline backports
