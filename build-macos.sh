@@ -29,7 +29,7 @@ set -e
 #
 # Distribution archive name (without the chunk suffix)
 #
-distribution=gcc-arm-none-eabi-4_6-2012q1-20120316
+distribution=gcc-arm-none-eabi-4_6-2012q2-20120614
 
 #
 # Establish the location of the distribution archives and make a working
@@ -357,7 +357,7 @@ EOF
 patch <<-'EOF'
 	--- ../release.txt  2012-03-31 21:30:25.000000000 -0700
 	+++ ./release.txt 2012-03-31 21:31:19.000000000 -0700
-	@@ -5,54 +5,10 @@
+	@@ -5,52 +5,10 @@
 	 *************************************************
 	 
 	 This release includes the following items:
@@ -365,19 +365,17 @@ patch <<-'EOF'
 	-* Bare metal EABI pre-built binaries for running on a Linux host
 	-* Source code package (together with build scripts and instructions to setup
 	-  build environment), composed of:
-	-  * gcc : ARM/embedded-4_6-branch revision 185452
+	-  * gcc : ARM/embedded-4_6-branch revision 188521
 	-    http://gcc.gnu.org/svn/gcc/branches/ARM/embedded-4_6-branch/
 	-
 	-  * binutils : 2.21 with mainline backports
 	-    git://sourceware.org/git/binutils.git
-	-    SHA: 47639bbc8b5fd6cf58aeefafbc99e0b1227d357c
 	-
 	-  * newlib : 1.19 with mainline backports
 	-    ftp://sources.redhat.com/pub/newlib/newlib-1.19.0.tar.gz
 	-
 	-  * gdb : 7.3.1 with mainline backports, without target sim support
 	-    git://sourceware.org/git/gdb.git
-	-    SHA: 5c912c6308dbb9c3163b60381c8f3ee037e28d2b
 	-
 	-  * cloog-ppl 0.15.11 : 
 	-    ftp://gcc.gnu.org/pub/gcc/infrastructure/cloog-ppl-0.15.11.tar.gz
@@ -406,7 +404,7 @@ patch <<-'EOF'
 	+* Bare metal EABI pre-built binaries for running on a Mac OS X host
 	 
 	 Supported hosts:
-	-* Windows 32/64 bits (with installer)
+	-* Windows XP/7 32/64 bits (with installer)
 	-* Linux 32/64 bits (tarball)
 	-  - Ubuntu 8.x/9.x/10.x
 	-  - RHEL 4/5
