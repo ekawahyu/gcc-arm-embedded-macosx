@@ -160,13 +160,13 @@ patch <<-'EOF'
 	     case $ac_arg in
 	         --skip_mingw32)
 	@@ -140,6 +144,7 @@
-         --host=$HOST_LINUX \
-         --target=$TARGET \
-         --prefix=$BUILDDIR_LINUX/host-libs/usr \
-    +    --enable-interfaces='c c++' \
-         --disable-shared \
-         --disable-nls \
-         --with-libgmp-prefix=$BUILDDIR_LINUX/host-libs/usr
+	     --host=$HOST_LINUX \
+	     --target=$TARGET \
+	     --prefix=$BUILDDIR_LINUX/host-libs/usr \
+	+    --enable-interfaces='c c++' \
+	     --disable-shared \
+	     --disable-nls \
+	     --with-libgmp-prefix=$BUILDDIR_LINUX/host-libs/usr
 EOF
 patch <<-'EOF'
 	--- ../build-toolchain.sh	2011-12-07 08:56:12.000000000 -0800
