@@ -41,7 +41,7 @@ src_dir=$base_dir/$distribution/src
 #
 # Check for the source files
 #
-if [ ! -r $base_dir/$distribution-src.7z.001 ]; then
+if [ ! -r $base_dir/$distribution-src.tar.bz2 ]; then
 	echo ""
 	echo "  Can't find the distribution files for $distribution"
 	echo "  (looked in the current directory only)"
@@ -53,15 +53,6 @@ fi
 #
 # Unpack the distribution
 #
-sevenzip=`which 7z` || true
-if [ -z $sevenzip ]; then
-	echo ""
-	echo "  Install the p7zip unpacker and try again."
-	echo "  (for Homebrew users, 'brew install p7zip' will be sufficient)"
-	echo ""
-	exit 1
-fi
-$sevenzip -y x $base_dir/$distribution-src.7z.001
 echo "Unpacking distribution archive..."
 tar xzU -f $distribution-src.tar.bz2
 
