@@ -7,7 +7,7 @@ Prerequisites:
 
 * Mac OS X 10.6 (Snow Leopard) or later.
 * Xcode (Snow Leopard) or command line tools install (Lion and Mountain Lion).
-* Unix tools: autoconf automake p7zip via Homebrew or MacPorts.
+* Unix tools: autoconf automake via Homebrew or MacPorts.
 
 ARM host the toolchain at https://launchpad.net/gcc-arm-embedded and
 you will need to download the distribution archives yourself.  Place
@@ -16,3 +16,5 @@ them in the same directory as the build-macosx.sh script and run it.
 Unlike other toolchain distributions, this one includes all of the 
 prerequisites, so it is not necessary to go chasing around after
 the various libraries that gcc normally requires.
+
+Update: added build script for linux, namely build-linux.sh
