@@ -29,7 +29,7 @@ set -e
 #
 # Distribution archive name (without the chunk suffix)
 #
-distribution=gcc-arm-none-eabi-4_6-2012q2-20120614
+distribution=gcc-arm-none-eabi-4_6-2012q4-20121016
 
 #
 # Establish the location of the distribution archives and make a working
@@ -110,7 +110,7 @@ patch <<-'EOF'
 	 INSTALLDIR_MINGW=$ROOT/install-mingw
 	 
 	 PACKAGEDIR=$ROOT/pkg
-	@@ -255,10 +255,10 @@
+	@@ -253,10 +253,10 @@
 	 LICENSE_FILE=license.txt
 	 GCC_VER=`cat $SRCDIR/$GCC/gcc/BASE-VER`
 	 GCC_VER_NAME=`echo $GCC_VER | cut -d'.' -f1,2 | sed -e 's/\./_/g'`
@@ -160,8 +160,8 @@ patch <<-'EOF'
 	     --with-libgmp-prefix=$BUILDDIR_LINUX/host-libs/usr
 EOF
 patch <<-'EOF'
-	--- ../build-toolchain.sh	2011-12-07 08:56:12.000000000 -0800
-	+++ ./build-toolchain.sh	2012-01-27 21:08:15.000000000 -0800
+	--- ../build-toolchain.sh	2012-10-16 08:48:45.000000000 +0200
+	+++ ./build-toolchain.sh	2012-12-16 23:32:23.000000000 +0100
 	@@ -35,7 +35,7 @@
 	 
 	 exec < /dev/null
@@ -217,16 +217,13 @@ patch <<-'EOF'
 	+test -d include && rmdir include
 	 popd
 	 
-	 echo Task [1-10] /$HOST_LINUX/newlib/
-	@@ -164,25 +169,16 @@
-	     --disable-newlib-supplied-syscalls \
-	     --disable-nls
+	 echo Task [III-2] /$HOST_LINUX/newlib/
+	@@ -166,23 +171,14 @@
 	 
-	-make -j$JOBS
-	-
+	 make -j$JOBS
+	 
 	-make htmldir=$INSTALLDIR_LINUX/share/doc/html pdfdir=$INSTALLDIR_LINUX/share/doc/pdf infodir=$INSTALLDIR_LINUX/share/doc/info mandir=$INSTALLDIR_LINUX/share/doc/man install
-	+make -j$JOBS 
-	 
+	-
 	-make pdf
 	-mkdir -p $INSTALLDIR_LINUX/share/doc/pdf
 	-cp $BUILDDIR_LINUX/newlib/arm-none-eabi/newlib/libc/libc.pdf $INSTALLDIR_LINUX/share/doc/pdf/libc.pdf
@@ -241,7 +238,7 @@ patch <<-'EOF'
 	 popd
 	 restoreenv
 	 
-	 echo Task [1-11] /$HOST_LINUX/gcc-final/
+	 echo Task [III-3] /$HOST_LINUX/gcc-final/
 	 rm -f $INSTALLDIR_LINUX/arm-none-eabi/usr
 	+mkdir -p $INSTALLDIR_LINUX/arm-none-eabi
 	 ln -s . $INSTALLDIR_LINUX/arm-none-eabi/usr
@@ -329,20 +326,20 @@ patch <<-'EOF'
 	-* Installing executables on Linux *
 	+* Installing executables on Mac OS X *
 	 Unpack the tarball to the target directory, like this:
-	 $ cd target_dir && tar xjf arm-none-eabi-gcc-4_x-YYYYMMDD.tar.bz2
+	 $ cd target_dir && tar xjf gcc-arm-none-eabi-*-yyyymmdd.tar.bz2
 	 
 	-* Installing executables on Windows *
-	-Run the installer (arm-none-eabi-gcc-4_x-YYYYMMDD.exe) and follow the
+	-Run the installer (gcc-arm-none-eabi-*-yyyymmdd.exe) and follow the
 	-instructions.
 	+Note that the HTML and PDF documentation is not included in this distribution.
 	 
 	 * Invoking GCC *
 	-On Linux, either invoke with the complete path like this:
 	+On Mac OS X, either invoke with the complete path like this:
-	 $ target_dir/arm-none-eabi-gcc-4_x/bin/arm-none-eabi-gcc
+	 $ target_dir/gcc-arm-none-eabi-*/bin/arm-none-eabi-gcc
 	 
 	 Or set path like this:
-	 $ export PATH=$PATH:target_dir/arm-none-eabi-gcc-4_x/bin/arm-none-eabi-gcc/bin
+	 $ export PATH=$PATH:target_dir/gcc-arm-none-eabi-gcc-*/bin/arm-none-eabi-gcc/bin
 	 $ arm-none-eabi-gcc
 	 
 	-On Windows (although the above approaches also work), it can be more
@@ -356,7 +353,7 @@ EOF
 patch <<-'EOF'
 	--- ../release.txt  2012-03-31 21:30:25.000000000 -0700
 	+++ ./release.txt 2012-03-31 21:31:19.000000000 -0700
-	@@ -5,52 +5,10 @@
+	@@ -5,51 +5,10 @@
 	 *************************************************
 	 
 	 This release includes the following items:
@@ -364,17 +361,19 @@ patch <<-'EOF'
 	-* Bare metal EABI pre-built binaries for running on a Linux host
 	-* Source code package (together with build scripts and instructions to setup
 	-  build environment), composed of:
-	-  * gcc : ARM/embedded-4_6-branch revision 188521
+	-  * gcc : ARM/embedded-4_6-branch revision 192487
 	-    http://gcc.gnu.org/svn/gcc/branches/ARM/embedded-4_6-branch/
 	-
 	-  * binutils : 2.21 with mainline backports
 	-    git://sourceware.org/git/binutils.git
+	-    branch: binutils-2_21-branch@47639bbc8b5fd6cf58aeefafbc99e0b1227d357c
 	-
 	-  * newlib : 1.19 with mainline backports
 	-    ftp://sources.redhat.com/pub/newlib/newlib-1.19.0.tar.gz
 	-
 	-  * gdb : 7.3.1 with mainline backports, without target sim support
 	-    git://sourceware.org/git/gdb.git
+	-    branch: gdb_7_3-branch@5c912c6308dbb9c3163b60381c8f3ee037e28d2b
 	-
 	-  * cloog-ppl 0.15.11 : 
 	-    ftp://gcc.gnu.org/pub/gcc/infrastructure/cloog-ppl-0.15.11.tar.gz
@@ -397,9 +396,6 @@ patch <<-'EOF'
 	-
 	-  * zlib 1.2.5 with makefile patch : 
 	-    http://sourceforge.net/projects/libpng/files/zlib/1.2.5/zlib-1.2.5.tar.bz2/download
-	-
-	-  * ncurses 5.9 :
-	-    http://ftp.gnu.org/pub/gnu/ncurses/ncurses-5.9.tar.gz
 	+* Bare metal EABI pre-built binaries for running on a Mac OS X host
 	 
 	 Supported hosts:
