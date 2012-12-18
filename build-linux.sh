@@ -30,7 +30,7 @@ set -e
 #
 # Distribution archive name (without the chunk suffix)
 #
-distribution=gcc-arm-none-eabi-4_6-2012q2-20120614
+distribution=gcc-arm-none-eabi-4_6-2012q4-20121016
 
 #
 # Establish the location of the distribution archives and make a working
@@ -82,14 +82,55 @@ popd
 #
 # Patch the build scripts
 #
+echo "Patching the build scripts..."
+pushd $base_dir/$distribution
+
+# Patch for native x86_64 toolchain
+if [ `uname -m` == x86_64 ]; then
+patch <<-'EOF'
+	--- build-common.sh-    2012-12-17 13:50:53.000000000 -0800
+	+++ build-common.sh     2012-12-17 13:56:40.000000000 -0800
+	@@ -255,8 +255,8 @@
+	 GCC_VER_NAME=`echo $GCC_VER | cut -d'.' -f1,2 | sed -e 's/\./_/g'`
+	 JOBS=`grep ^processor /proc/cpuinfo|wc -l`
+	
+	-BUILD=i686-linux-gnu
+	-HOST_LINUX=i686-linux-gnu
+	+BUILD=x86-64-linux-gnu
+	+HOST_LINUX=x86-64-linux-gnu
+	 HOST_MINGW=i586-mingw32
+	 HOST_MINGW_TOOL=i586-mingw32msvc
+	 TARGET=arm-none-eabi
+EOF
+fi
+
+# Patch for latest dos2unix 6.0 (it does not accept -d/-u options)
+patch <<-'EOF'
+	--- build-toolchain.sh- 2012-12-17 16:02:17.000000000 -0800
+	+++ build-toolchain.sh  2012-12-17 16:11:25.000000000 -0800
+	@@ -513,9 +513,9 @@
+	 cp $ROOT/$RELEASE_FILE $INSTALLDIR_MINGW/
+	 cp $ROOT/$README_FILE $INSTALLDIR_MINGW/
+	 cp $ROOT/$LICENSE_FILE $INSTALLDIR_MINGW/
+	-dos2unix -u $INSTALLDIR_MINGW/$RELEASE_FILE
+	-dos2unix -u $INSTALLDIR_MINGW/$README_FILE
+	-dos2unix -u $INSTALLDIR_MINGW/$LICENSE_FILE
+	+unix2dos $INSTALLDIR_MINGW/$RELEASE_FILE
+	+unix2dos $INSTALLDIR_MINGW/$README_FILE
+	+unix2dos $INSTALLDIR_MINGW/$LICENSE_FILE
+	 ln -s $INSTALLDIR_MINGW $INSTALL_PACKAGE_NAME
+	 $SRCDIR/$INSTALLATION/build_win_pkg.sh --package=$INSTALL_PACKAGE_NAME --release_ver=$RELEASEVER --date=$RELEASEDATE
+	 cp -rf $SRCDIR/$INSTALLATION/output/$PACKAGE_NAME.exe $PACKAGEDIR/
+EOF
+popd
 
 #
 # Ok, let's build
 #
 echo "%%% Building prerequisites..."
-(cd $base_dir/$distribution && /bin/bash ./build-prerequisites.sh)
+(cd $base_dir/$distribution && /bin/bash ./build-prerequisites.sh $*)
 
 echo "%%% Building toolchain..."
-(cd $base_dir/$distribution && /bin/bash ./build-toolchain.sh)
+(cd $base_dir/$distribution && /bin/bash ./build-toolchain.sh $*)
 
 echo "%%% Done."
