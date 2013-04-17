@@ -18,3 +18,9 @@ prerequisites, so it is not necessary to go chasing around after
 the various libraries that gcc normally requires.
 
 Update: added build script for linux, namely build-linux.sh
+
+Update:
+
+* Linux build for 2013q1
+* On a bare Debian Wheezy builds with the following packages: bison build-essential debhelper flex gettext libncurses5-dev texlive 
+
