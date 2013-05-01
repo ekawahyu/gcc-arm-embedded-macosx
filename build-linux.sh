@@ -111,6 +111,21 @@ patch <<-'EOF'
 	     JOBS=`grep ^processor /proc/cpuinfo|wc -l`
 	     GCC_CONFIG_OPTS_LCPP="--with-host-libstdcxx=-static-libgcc -Wl,-Bstatic,-lstdc++,-Bdynamic -lm"
 EOF
+
+# We need to add '-lm' to build cloog on Ubuntu 13.04
+patch <<-'EOF'
+--- build-prerequisites.sh-     2013-04-26 07:29:51.152214299 +0200
++++ build-prerequisites.sh      2013-04-26 00:27:06.780214299 +0200
+	@@ -166,7 +166,7 @@
+	     --prefix=$BUILDDIR_NATIVE/host-libs/usr \
+	     --disable-shared \
+	     --disable-nls \
+	-    --with-host-libstdcxx='-lstdc++'    \
+	+    --with-host-libstdcxx='-lstdc++ -lm'    \
+	     --with-gmp=$BUILDDIR_NATIVE/host-libs/usr \
+	     --with-ppl=$BUILDDIR_NATIVE/host-libs/usr
+EOF
+
 fi
 
 popd
