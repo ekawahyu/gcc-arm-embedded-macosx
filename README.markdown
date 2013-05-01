@@ -23,4 +23,4 @@ Update:
 
 * Linux build for 2013q1
 * On a bare Debian Wheezy builds with the following packages: bison build-essential debhelper flex gettext libncurses5-dev texlive texinfo
-
+* To build native gcc, you will also need: libgmp-dev libmpfr-dev libmpc-dev (libgmp3-dev gcc-multilib)

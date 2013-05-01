@@ -1,2 +1,4 @@
 arm-none-eabi*
 gcc-*
+gcc
+*.log
